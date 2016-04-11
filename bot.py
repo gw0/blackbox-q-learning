@@ -89,7 +89,7 @@ class BlackBox(Environment):
             self._epoch_prev = score
             return True
 
-        if score < -1.:
+        if score < -1. and score < -self._epoch_max / 2:
             print "\ndead (steps: {}/{}, score: {:.5}/{:.5})".format(self._steps, self.train_steps, score, self._epoch_max)
             print self._actions_log
             return True
