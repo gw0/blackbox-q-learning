@@ -77,19 +77,20 @@ class BlackBox(Environment):
     @property
     def is_over(self):
         score = bbox.get_score()
+        if score > self._epoch_max:
+            self._epoch_max = score  # remember max score
 
         if self._steps >= self.train_steps:
-            print "\nover limit (steps: {}, score: {})".format(self._steps, score)
+            print "\nover (steps: {}/{}, score: {:.5}/{:.5})".format(self._steps, self.train_steps, score, self._epoch_max)
             print self._actions_log
 
             if score == self._epoch_prev:
-                self._epoch_max = score
                 self.train_steps += 1  # increase steps after a while
             self._epoch_prev = score
             return True
 
         if score < -0.1:
-            print "\ndead (steps: {}, score: {})".format(self._steps, score)
+            print "\ndead ({}/{}, score: {:.5}/{:.5})".format(self._steps, self.train_steps, score, self._epoch_max)
             print self._actions_log
             return True
         return self._is_over
@@ -126,13 +127,11 @@ if __name__ == "__main__":
     # learning model
     keras_model = Sequential()
     keras_model.add(Dense(hidden_dim, activation="softmax", input_dim=agent_env.n_features))
-    #keras_model.add(PReLU())
-    #keras_model.add(BatchNormalization(mode=0, axis=1))
-    keras_model.add(Dropout(0.5))
+    keras_model.add(Dropout(0.1))
     keras_model.add(Dense(hidden_dim, activation="softmax"))
-    #keras_model.add(PReLU())
-    #keras_model.add(BatchNormalization(mode=0, axis=1))
-    keras_model.add(Dropout(0.5))
+    keras_model.add(Dropout(0.1))
+    keras_model.add(Dense(hidden_dim, activation="softmax"))
+    keras_model.add(Dropout(0.1))
     keras_model.add(Dense(agent_env.n_actions))
     agent_model = KerasModel(keras_model)
 
