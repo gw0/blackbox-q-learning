@@ -159,9 +159,9 @@ if __name__ == "__main__":
     num_actions = env.n_actions
 
     model = Sequential()
-    model.add(Dense(hidden_size, input_shape=(env.n_features,), activation='softmax'))
-    model.add(Dense(hidden_size, activation='softmax'))
-    model.add(Dense(hidden_size, activation='softmax'))
+    model.add(Dense(hidden_size, input_shape=(env.n_features,), activation='softplus'))
+    model.add(Dense(hidden_size, activation='softplus'))
+    model.add(Dense(hidden_size, activation='softplus'))
     model.add(Dense(num_actions))
     #model.compile(SGD(lr=.2), "mse")
     model.compile(RMSprop(), "mse")

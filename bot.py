@@ -127,11 +127,11 @@ if __name__ == "__main__":
 
     # learning model
     keras_model = Sequential()
-    keras_model.add(Dense(hidden_dim, activation="softmax", input_dim=agent_env.n_features))
+    keras_model.add(Dense(hidden_dim, activation="softplus", input_dim=agent_env.n_features))
     keras_model.add(Dropout(0.5))
-    keras_model.add(Dense(hidden_dim, activation="softmax"))
+    keras_model.add(Dense(hidden_dim, activation="softplus"))
     keras_model.add(Dropout(0.5))
-    keras_model.add(Dense(hidden_dim, activation="softmax"))
+    keras_model.add(Dense(hidden_dim, activation="softplus"))
     keras_model.add(Dropout(0.5))
     keras_model.add(Dense(agent_env.n_actions))
     agent_model = KerasModel(keras_model)
