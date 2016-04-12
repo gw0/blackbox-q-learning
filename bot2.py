@@ -81,8 +81,8 @@ class BlackBox(Environment):
             print "\nover (steps: {}/{}, score: {:.5}/{:.5})".format(self._steps, self.train_steps, score, self._epoch_max)
             print self._actions_log
 
-            if score == self._epoch_prev or score == self._epoch_max:
-                self.train_steps += 0.5  # increase steps after a while
+            #if score == self._epoch_prev or score == self._epoch_max:
+            self.train_steps += 0.1  # increase steps after a while
             self._epoch_prev = score
             return True
 
@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     # parameters
     epsilon = .1  # exploration
-    epoch = 1000
+    epoch = 100000
     max_memory = 500
     hidden_size = 200
     batch_size = 50

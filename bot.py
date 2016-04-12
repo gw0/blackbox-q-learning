@@ -53,7 +53,8 @@ class BlackBox(Environment):
             self.max_time = bbox.get_max_time()
 
         self._steps = 0
-        self._state = np.zeros((1, self.n_features))
+        self._state_shape = (1, self.n_features)
+        self._state = np.zeros(self._state_shape)
         self._is_over = False
         self._prev_score = -float('inf')
         self._actions_log = []
@@ -66,7 +67,7 @@ class BlackBox(Environment):
         self._steps += 1
         self._prev_score = bbox.get_score()
         self._is_over = not bbox.do_action(action[0])
-        self._state = bbox.get_state().reshape((1, self.n_features))
+        self._state = bbox.get_state().reshape(self._state_shape)
         #print "\nupdate", self._prev_score, action, bbox.get_score(), self._is_over
         return self.state, self.reward(), self.is_over
 
@@ -84,8 +85,8 @@ class BlackBox(Environment):
             print "\nover (steps: {}/{}, score: {:.5}/{:.5})".format(self._steps, self.train_steps, score, self._epoch_max)
             print self._actions_log
 
-            if score == self._epoch_prev or score == self._epoch_max:
-                self.train_steps += 0.5  # increase steps after a while
+            #if score == self._epoch_prev or score == self._epoch_max:
+            self.train_steps += 0.1  # slowly increase steps
             self._epoch_prev = score
             return True
 
