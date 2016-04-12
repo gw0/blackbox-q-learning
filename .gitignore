@@ -4,6 +4,4 @@
 *.tgz
 /venv
 /blackbox
-/interface.so
 /EderSantana-X
-/x

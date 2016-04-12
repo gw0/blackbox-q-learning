@@ -42,8 +42,9 @@ pip install git+https://github.com/fchollet/keras.git
 pip install pyparsing
 pip install matplotlib
 
-#wget http://blackboxchallenge.com/static/blackbox.zip
-#git clone https://github.com/EderSantana/X
+wget http://blackboxchallenge.com/static/blackbox.zip
+unzip blackbox.zip
+git clone https://github.com/EderSantana/X EderSantana-X
 
 echo
 echo "Use: . venv/bin/activate"
